@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F04F78B1E325745002AF44F /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F04F7891E325745002AF44F /* Error.cpp */; };
 		7FCEC1DE1E2E370A00463651 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCEC1DD1E2E370A00463651 /* main.cpp */; };
+		7FCEC1E71E2E377100463651 /* Skis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCEC1E51E2E377100463651 /* Skis.cpp */; };
+		7FCEC1EA1E2E386E00463651 /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCEC1E81E2E386E00463651 /* Parameters.cpp */; };
+		7FCEC1F01E2E4A8400463651 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7FCEC1EE1E2E4A8400463651 /* File.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +27,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7F04F7891E325745002AF44F /* Error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Error.cpp; path = ../Error.cpp; sourceTree = "<group>"; };
+		7F04F78A1E325745002AF44F /* Error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		7FCEC1DA1E2E370A00463651 /* SkiEquipment */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SkiEquipment; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FCEC1DD1E2E370A00463651 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		7FCEC1E51E2E377100463651 /* Skis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skis.cpp; path = ../Skis.cpp; sourceTree = "<group>"; };
+		7FCEC1E61E2E377100463651 /* Skis.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Skis.hpp; sourceTree = "<group>"; };
+		7FCEC1E81E2E386E00463651 /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parameters.cpp; path = ../Parameters.cpp; sourceTree = "<group>"; };
+		7FCEC1E91E2E386E00463651 /* Parameters.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Parameters.hpp; sourceTree = "<group>"; };
+		7FCEC1EE1E2E4A8400463651 /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = File.cpp; path = ../File.cpp; sourceTree = "<group>"; };
+		7FCEC1EF1E2E4A8400463651 /* File.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +53,8 @@
 		7FCEC1D11E2E370A00463651 = {
 			isa = PBXGroup;
 			children = (
-				7FCEC1DC1E2E370A00463651 /* SkiEquipment */,
+				7FCEC1E41E2E372600463651 /* Headers */,
+				7FCEC1DC1E2E370A00463651 /* Source files */,
 				7FCEC1DB1E2E370A00463651 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +67,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7FCEC1DC1E2E370A00463651 /* SkiEquipment */ = {
+		7FCEC1DC1E2E370A00463651 /* Source files */ = {
 			isa = PBXGroup;
 			children = (
 				7FCEC1DD1E2E370A00463651 /* main.cpp */,
+				7FCEC1EE1E2E4A8400463651 /* File.cpp */,
+				7FCEC1E51E2E377100463651 /* Skis.cpp */,
+				7FCEC1E81E2E386E00463651 /* Parameters.cpp */,
+				7F04F7891E325745002AF44F /* Error.cpp */,
 			);
+			name = "Source files";
 			path = SkiEquipment;
+			sourceTree = "<group>";
+		};
+		7FCEC1E41E2E372600463651 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				7FCEC1E61E2E377100463651 /* Skis.hpp */,
+				7FCEC1E91E2E386E00463651 /* Parameters.hpp */,
+				7FCEC1EF1E2E4A8400463651 /* File.hpp */,
+				7F04F78A1E325745002AF44F /* Error.hpp */,
+			);
+			name = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +149,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FCEC1EA1E2E386E00463651 /* Parameters.cpp in Sources */,
+				7F04F78B1E325745002AF44F /* Error.cpp in Sources */,
+				7FCEC1F01E2E4A8400463651 /* File.cpp in Sources */,
 				7FCEC1DE1E2E370A00463651 /* main.cpp in Sources */,
+				7FCEC1E71E2E377100463651 /* Skis.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +282,7 @@
 				7FCEC1E31E2E370A00463651 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
