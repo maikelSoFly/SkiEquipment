@@ -23,20 +23,69 @@ Skis::~Skis() {
     
 }
 
+bool Skis::isSameWord(string str1, string str2) {
+    if (str1.length() == str2.length()) {
+        for(int i = 0; i < str1.length(); ++i) {
+            if ((str1[i] != str2[i]) && (tolower(str1[i]) != tolower(str2[i]))) return false;
+        }
+    } else return false;
+    return true;
+}
+
 void Skis::setBrand(string brand) {
-    _brand = brand;
+    bool hit = 0;
+    string brandNames[3];
+    brandNames[0] = "Atomic";
+    brandNames[1] = "HEAD";
+    brandNames[2] = "Rossignol";
+    for (int i = 0; i < 3; ++i) {
+        if (isSameWord(brand, brandNames[i])) {
+            hit = true;
+            _brand = brandNames[i];
+            cout << "\n\nSki equipment > Skis > " << _brand << " > Seasons:\n\n";
+        }
+    }
+    if(!hit) throw Error(Error::Brand);
 }
 
 void Skis::setSeason(string season) {
-    _season = season;
+    if (season != "14-15" && season != "15-16" && season != "16-17") throw Error(Error::Season);
+    else _season = season;
 }
 
 void Skis::setModelName(string modelName) {
-    _modelName = modelName;
+    bool hit = 0;
+    string str;
+    int iter = 0;
+    list<string>::const_iterator i;
+    for (i = _models.begin(); i != _models.end(); ++i) {
+        ++iter;
+        str = *i;
+        if (iter != _models.size()) str.erase(str.end()-1);
+        if (isSameWord(modelName, str)) {
+            hit = 1;
+            _modelName = str;
+        }
+    }
+    if (!hit) throw Error(Error::Model);
+    
 }
 
 void Skis::setCategory(string category) {
-    _category = category;
+    bool hit = 0;
+    string str;
+    int iter = 0;
+    list<string>::const_iterator i;
+    for (i = _categories.begin(); i != _categories.end(); ++i) {
+        ++iter;
+        str = *i;
+        if (isSameWord(category, str)) {
+            hit = 1;
+            _category = str;
+        }
+    }
+    if (!hit) throw Error(Error::Category);
+    
 }
 
 list<string> &Skis::getCategories() {

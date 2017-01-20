@@ -12,6 +12,7 @@
 #include <string>
 #include "Parameters.hpp"
 #include <list>
+#include "Error.hpp"
 
 class Skis : public Parameters {
     std::string _brand;
@@ -44,6 +45,8 @@ public:
     void printCategories();
     void printModels();
     void printParameters();
+    
+    bool isSameWord(std::string, std::string);
     
     void operator=(const Skis&);
     
