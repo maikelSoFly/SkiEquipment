@@ -16,7 +16,7 @@ class Parameters {
     
 protected:
     std::list<int> _lenghts;
-    std::list<int> _radius;
+    std::list<double> _radius;
     std::list<int> _sideCut;
     std::list<std::string> _technologies;
     bool targetIndicator[9];

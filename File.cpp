@@ -13,10 +13,13 @@ using namespace std;
 
 File::File(){
     ski = new Skis();
+    for (int i = 0; i < 20; i++) cout << "     ";
+    cout << "> File object created\n";
 }
 
 File::~File() {
-    
+    for (int i = 0; i < 20; i++) cout << "     ";
+    cout << "> File object removed from memory\n";
 }
 
 void File::readFromPath(string _path, list<string> &list) {
@@ -41,7 +44,7 @@ void File::readFromPath(string _path, list<string> &list) {
     } else cout << "\n> Reading file error!\n";
 }
 
-void File::readParameters(string _path, list<int> &lenghts, list<int> &radius, list<int> &sideCut) {
+void File::readParameters(string _path, list<int> &lenghts, list<double> &radius, list<int> &sideCut) {
     string field;
     path = _path;
     file.open(path, ios::in);

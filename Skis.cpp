@@ -17,10 +17,13 @@ Skis::Skis(string brand, string season) {
 }
 
 Skis::Skis() {
-    
+    for (int i = 0; i < 9; i++) targetIndicator[i] = 0;
+    for (int i = 0; i < 20; i++) cout << "     ";
+    cout << "> Skis object created\n";
 }
 Skis::~Skis() {
-    
+    for (int i = 0; i < 20; i++) cout << "     ";
+    cout << "> Skis object removed from memory\n";
 }
 
 bool Skis::isSameWord(string str1, string str2) {
@@ -34,11 +37,13 @@ bool Skis::isSameWord(string str1, string str2) {
 
 void Skis::setBrand(string brand) {
     bool hit = 0;
-    string brandNames[3];
+    string brandNames[5];
     brandNames[0] = "Atomic";
     brandNames[1] = "HEAD";
     brandNames[2] = "Rossignol";
-    for (int i = 0; i < 3; ++i) {
+    brandNames[3] = "Voelkl";
+    brandNames[4] = "Fischer";
+    for (int i = 0; i < 5; ++i) {
         if (isSameWord(brand, brandNames[i])) {
             hit = true;
             _brand = brandNames[i];
@@ -100,7 +105,7 @@ list<int> &Skis::getLenghts() {
     return _lenghts;
 }
 
-list<int> &Skis::getRadius() {
+list<double> &Skis::getRadius() {
     return _radius;
 }
 
@@ -161,20 +166,31 @@ void Skis::compare(const Skis& ski) {
     }
     itrP = 0;
     cout << "cm            " << endl;
-    
+    list<double>::const_iterator iPd;
     cout << "    Radius:  ";
-    for( iP = _radius.begin(); iP != _radius.end(); ++iP) {
+    for( iPd = _radius.begin(); iPd != _radius.end(); ++iPd) {
         itrP++;
-        if (*iP != 0)cout << *iP;
+        if (*iPd != 0){
+            double db = *iPd;
+            if (db > 100 && itrP < 2)
+                cout << db/10;
+            else cout << db;
+        }
         if (itrP < 2) {
             cout << "m for ";
         }
     }cout << "cm            ";
     itrP = 0;
     
-    for( iP = ski._radius.begin(); iP != ski._radius.end(); ++iP) {
+    for( iPd = ski._radius.begin(); iPd != ski._radius.end(); ++iPd) {
         itrP++;
-        if (*iP != 0)cout << *iP;
+        if (*iPd != 0){
+            double db = *iPd;
+            if (db > 100 && itrP < 2)
+                cout << db/10;
+            else cout << db;
+        }
+
         if (itrP < 2) {
             cout << "m for ";
         }
@@ -220,69 +236,90 @@ void Skis::compare(const Skis& ski) {
 }
 
 void Skis::printTechnologies() {
-    
-    cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > " << _modelName << " > Technologies:\n\n";
-    
-    list<string>::const_iterator i;
-    for( i = _technologies.begin(); i != _technologies.end(); ++i)
-        cout << "    " << *i;
-    cout << endl;
+    if (_technologies.size() != 0) {
+        cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > " << _modelName << " > Technologies:\n\n";
+        
+        list<string>::const_iterator i;
+        for( i = _technologies.begin(); i != _technologies.end(); ++i)
+            cout << "    " << *i;
+        cout << endl;
+    } else cout << "\n> No technologies\n\n";
 }
 
 void Skis::printCategories() {
+    if (_categories.size() != 0) {
+        cout << "\nSki > " << _brand << " > " << _season << " > Categories:\n\n";
+        
+        list<string>::const_iterator i;
+        for( i = _categories.begin(); i != _categories.end(); ++i) {
+            cout << setw(15) << *i;
+        }
+        cout << endl;
+    } else cout << "\n> No categories\n\n";
     
-    cout << "\nSki > " << _brand << " > " << _season << " > Categories:\n\n";
-    
-    list<string>::const_iterator i;
-    for( i = _categories.begin(); i != _categories.end(); ++i) {
-        cout << setw(15) << *i;
-    }
-    cout << endl;
 }
 
 void Skis::printModels() {
-    
-    cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > Models:\n\n";
-    
-    list<string>::const_iterator i;
-    for( i = _models.begin(); i != _models.end(); ++i) {
-        cout << "    " << *i;
-    }
-    cout << endl;
+    if (_models.size() != 0) {
+        cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > Models:\n\n";
+        
+        list<string>::const_iterator i;
+        for( i = _models.begin(); i != _models.end(); ++i) {
+            cout << "    " << *i;
+        }
+        cout << endl;
+    } else cout << "\n> No models\n\n";
 }
 
 void Skis::printParameters() {
     
     cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > " << _modelName << " > Parameters:\n\n";
-    cout << "    Lenghts:   ";
+    
     list<int>::const_iterator i;
+    list<double>::const_iterator id;
     int itr = 0;
-    for( i = _lenghts.begin(); i != _lenghts.end(); ++i) {
-        itr++;
-        cout << *i;
-        if (itr < 3) {
-            cout << " / ";
+    
+    if (_lenghts.size() != 0) {
+        cout << "    Lenghts:   ";
+        
+        for( i = _lenghts.begin(); i != _lenghts.end(); ++i) {
+            itr++;
+            cout << *i;
+            if (itr < 3) {
+                cout << " / ";
+            }
         }
-    }
-    itr = 0;
-    cout << "cm" << endl;
-    cout << "    Radius:    ";
-    for( i = _radius.begin(); i != _radius.end(); ++i) {
-        itr++;
-        if (*i != 0)cout << *i;
-        if (itr < 2) {
-            cout << "m for ";
+        itr = 0;
+        cout << "cm" << endl;
+    } else cout << "\n> No lenghts\n\n";
+    
+    
+    if (_radius.size() != 0) {
+        cout << "    Radius:    ";
+        for( id = _radius.begin(); id != _radius.end(); ++id) {
+            itr++;
+            if (*id != 0){
+                double db = *id;
+                cout << db/10;
+            }
+            if (itr < 2) {
+                cout << "m for ";
+            }
+        }cout << "cm";
+        itr = 0;
+        cout << endl;
+    } else cout << "\n> No radius\n\n";
+    
+    
+    if (_sideCut.size() != 0) {
+        cout << "    Sidecut:   ";
+        for( i = _sideCut.begin(); i != _sideCut.end(); ++i) {
+            itr++;
+            cout << *i;
+            if (itr < 3) {
+                cout << " / ";
+            }
         }
-    }cout << "cm";
-    itr = 0;
-    cout << endl;
-    cout << "    Sidecut:   ";
-    for( i = _sideCut.begin(); i != _sideCut.end(); ++i) {
-        itr++;
-        cout << *i;
-        if (itr < 3) {
-            cout << " / ";
-        }
-    }
-    cout << endl;
+        cout << endl;
+    }else cout << "\n> No sidecut\n\n";
 }

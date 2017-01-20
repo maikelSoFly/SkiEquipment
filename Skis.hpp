@@ -32,7 +32,7 @@ public:
     std::list<std::string> &getCategories();
     std::list<std::string> &getModels();
     std::list<int> &getLenghts();
-    std::list<int> &getRadius();
+    std::list<double> &getRadius();
     std::list<int> &getSidecut();
     
     void setBrand(std::string);

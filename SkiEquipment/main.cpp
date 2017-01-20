@@ -80,10 +80,12 @@ int main() {
                 compare = 0;
             }
             
-            cout << "\nDo you want to compare to another skis?";
+            cout << "\nDo you want to compare to another skis?\n";
             cin >> c;
             if (c == 'Y' || c == 'y') {
                 save = *&file->ski;
+                for (int i = 0; i < 20; i++) cout << "     ";
+                cout << "> Copy created\n";
                 compare = 1;
             }
             

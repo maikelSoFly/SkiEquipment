@@ -11,13 +11,12 @@
 #include <list>
 
 class File {
+    
     std::fstream file;
     std::string path;
-    std::string type;
-    int size;
-    
     
 public:
+    
     File();
     ~File();
     Skis *ski;
@@ -25,6 +24,6 @@ public:
     void readCategories(std::string);
     void readModels(std::string);
     void readFromPath(std::string, std::list<std::string>&);
-    void readParameters(std::string, std::list<int>&, std::list<int>&, std::list<int>&);
+    void readParameters(std::string, std::list<int>&, std::list<double>&, std::list<int>&);
     
 };
