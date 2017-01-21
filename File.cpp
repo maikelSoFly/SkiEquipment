@@ -44,7 +44,10 @@ void File::readFromPath(string _path, list<string> &list) {
     } else cout << "\n> Reading file error!\n";
 }
 
-void File::readParameters(string _path, list<int> &lenghts, list<double> &radius, list<int> &sideCut) {
+void File::readParameters(string _path,
+                          list<int> &lenghts,
+                          list<double> &radius,
+                          list<int> &sideCut) {
     string field;
     path = _path;
     file.open(path, ios::in);

@@ -20,12 +20,10 @@ protected:
     std::list<int> _sideCut;
     std::list<std::string> _technologies;
     bool targetIndicator[9];
-    friend void readParameters(std::string, std::list<int>&, std::list<int>&, std::list<int>&);
+    
 public:
     
     virtual void printTargetIndicator();
-    virtual void setTargetIndicator();
-    
     virtual std::list<std::string> &getTechnologies();
 };
 

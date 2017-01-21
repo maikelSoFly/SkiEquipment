@@ -35,6 +35,7 @@ string pathCompiler(string s1, string s2, string s3, string s4, string s5) {
 }
 
 int main() {
+    
     Skis *save = NULL;
     string brand, season, category, model, path, type;
     bool compare = 0;
@@ -48,30 +49,66 @@ int main() {
             File *file= new File();
             
             cout << "Ski equipment > Skis > Brands:\n\n";
-            cout << setw(15) << internal << "HEAD" << setw(15) << "Rossignol" << setw(15) << "Voelkl" << setw(15) << "Fischer" << setw(15) << "Atomic" << endl;
+            cout
+            << setw(15) << "HEAD"
+            << setw(15) << "Rossignol"
+            << setw(15) << "Voelkl"
+            << setw(15) << "Fischer"
+            << setw(15) << "Atomic"
+            << endl;
+            
             cin >> brand;
+            
             file->ski->setBrand(brand);
-            cout << setw(15) << "14-15" << setw(15) << "15-16" << setw(15) << "16-17" << endl;
+            
+            cout
+            << setw(15) << "14-15"
+            << setw(15) << "15-16"
+            << setw(15) << "16-17"
+            << endl;
+            
             cin >> season;
+            
             file->ski->setSeason(season);
-            file->readFromPath(pathCompiler(brand, season, "Categories.csv"), file->ski->getCategories());
+            file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                            file->ski->getSeason(),
+                                            "Categories.csv"),
+                               file->ski->getCategories());
+            
             cout << endl;
             file->ski->printCategories();
             cin >> category;
+            
             file->ski->setCategory(category);
-            file->readFromPath(pathCompiler(brand, season, category, "Models.csv"), file->ski->getModels());
+            file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                            file->ski->getSeason(),
+                                            file->ski->getCategory(),
+                                            "Models.csv"),
+                               file->ski->getModels());
+            
             cout << endl;
             file->ski->printModels();
             cin.ignore();
             getline(cin, model);
-            file->ski->setModelName(model);
-           
             
-            file->readFromPath(pathCompiler(brand, season, category, model, "Technologies.csv"), file->ski->getTechnologies());
+            file->ski->setModelName(model);
+            file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                            file->ski->getSeason(),
+                                            file->ski->getCategory(),
+                                            file->ski->getModelName(),
+                                            "Technologies.csv"),
+                               file->ski->getTechnologies());
             cout << endl;
             file->ski->printTechnologies();
-        
-            file->readParameters(pathCompiler(brand, season, category, model, "Parameters.csv"), file->ski->getLenghts(), file->ski->getRadius(), file->ski->getSidecut());
+            file->readParameters(pathCompiler(file->ski->getBrand(),
+                                              file->ski->getSeason(),
+                                              file->ski->getCategory(),
+                                              file->ski->getModelName(),
+                                              "Parameters.csv"),
+                                 file->ski->getLenghts(),
+                                 file->ski->getRadius(),
+                                 file->ski->getSidecut());
+            
             file->ski->printParameters();
             file->ski->printTargetIndicator();
             
@@ -80,7 +117,7 @@ int main() {
                 compare = 0;
             }
             
-            cout << "\nDo you want to compare to another skis?\n";
+            cout << "\nDo you want to compare to another skis? Y/N\n";
             cin >> c;
             if (c == 'Y' || c == 'y') {
                 save = *&file->ski;

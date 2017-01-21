@@ -11,17 +11,15 @@
 using namespace std;
 
 void Parameters::printTargetIndicator() {
-    cout << endl << "Advanced level:\n";
-    cout << "beginiers                             experts\n    |";
+    cout << "\nAdvanced level:\n"
+         << "beginners                            experts\n    |";
+    
     for (int i = 0; i < 9; i++) {
         if(!targetIndicator[i]) cout << "   |";
         else cout << "///|";
     }
-    cout << endl << endl;
-}
-
-void Parameters::setTargetIndicator() {
     
+    cout << endl << endl;
 }
 
 list<string> &Parameters::getTechnologies() {

@@ -61,17 +61,39 @@ void Skis::setSeason(string season) {
 void Skis::setModelName(string modelName) {
     bool hit = 0;
     string str;
-    int iter = 0;
     list<string>::const_iterator i;
-    for (i = _models.begin(); i != _models.end(); ++i) {
-        ++iter;
-        str = *i;
-        if (iter != _models.size()) str.erase(str.end()-1);
-        if (isSameWord(modelName, str)) {
-            hit = 1;
-            _modelName = str;
+    
+    if (isdigit(modelName[0]) && modelName.length() == 1) {
+        
+        int modelNumber = stoi(modelName);
+        
+        if (modelNumber > 0 && modelNumber <= _models.size()) {
+            
+            int itt = 0;
+            for (i = _models.begin(); i != _models.end(); ++i) {
+                ++itt;
+                if (itt == modelNumber) {
+                    str = *i;
+                    if (itt != _models.size()) str.erase(str.end()-1);
+                    _modelName = str;
+                    hit = 1;
+                }
+            }
         }
     }
+    else {
+        int iter = 0;
+        for (i = _models.begin(); i != _models.end(); ++i) {
+            ++iter;
+            str = *i;
+            if (iter != _models.size()) str.erase(str.end()-1);
+            if (isSameWord(modelName, str)) {
+                hit = 1;
+                _modelName = str;
+            }
+        }
+    }
+    
     if (!hit) throw Error(Error::Model);
     
 }
@@ -111,6 +133,22 @@ list<double> &Skis::getRadius() {
 
 list<int> &Skis::getSidecut() {
     return _sideCut;
+}
+
+string Skis::getBrand() {
+    return _brand;
+}
+
+string Skis::getModelName() {
+    return _modelName;
+}
+
+string Skis::getSeason() {
+    return _season;
+}
+
+string Skis::getCategory() {
+    return _category;
 }
 
 void Skis::operator=(const Skis& ski) {
@@ -217,9 +255,9 @@ void Skis::compare(const Skis& ski) {
     cout << endl << endl;
 
     cout << "Ski > COMPARITION > Advanced level comparition comparition:\n\n";
-    cout << "beginiers                             experts"
-    << "           "
-    << "beginiers                             experts"
+    cout << "beginners                            experts"
+    << "            "
+    << "beginners                            experts"
     <<"\n    |";
     for (int i = 0; i < 9; i++) {
         if(!targetIndicator[i]) cout << "   |";
@@ -237,7 +275,16 @@ void Skis::compare(const Skis& ski) {
 
 void Skis::printTechnologies() {
     if (_technologies.size() != 0) {
-        cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > " << _modelName << " > Technologies:\n\n";
+        cout
+        << "\nSki > "
+        << _brand
+        << " > "
+        << _season
+        << " > "
+        << _category
+        << " > "
+        << _modelName
+        << " > Technologies:\n\n";
         
         list<string>::const_iterator i;
         for( i = _technologies.begin(); i != _technologies.end(); ++i)
@@ -248,7 +295,12 @@ void Skis::printTechnologies() {
 
 void Skis::printCategories() {
     if (_categories.size() != 0) {
-        cout << "\nSki > " << _brand << " > " << _season << " > Categories:\n\n";
+        cout
+        << "\nSki > "
+        << _brand
+        << " > "
+        << _season
+        << " > Categories:\n\n";
         
         list<string>::const_iterator i;
         for( i = _categories.begin(); i != _categories.end(); ++i) {
@@ -261,11 +313,20 @@ void Skis::printCategories() {
 
 void Skis::printModels() {
     if (_models.size() != 0) {
-        cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > Models:\n\n";
+        cout
+        << "\nSki > "
+        << _brand
+        << " > "
+        << _season
+        << " > "
+        << _category
+        << " > Models:\n\n";
         
+        int iter = 0;
         list<string>::const_iterator i;
         for( i = _models.begin(); i != _models.end(); ++i) {
-            cout << "    " << *i;
+            ++iter;
+            cout << "    " << iter << ". " << *i;
         }
         cout << endl;
     } else cout << "\n> No models\n\n";
@@ -273,7 +334,16 @@ void Skis::printModels() {
 
 void Skis::printParameters() {
     
-    cout << "\nSki > " << _brand << " > " << _season << " > " << _category << " > " << _modelName << " > Parameters:\n\n";
+    cout
+    << "\nSki > "
+    << _brand
+    << " > "
+    << _season
+    << " > "
+    << _category
+    << " > "
+    << _modelName
+    << " > Parameters:\n\n";
     
     list<int>::const_iterator i;
     list<double>::const_iterator id;

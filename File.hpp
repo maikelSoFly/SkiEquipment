@@ -19,11 +19,16 @@ public:
     
     File();
     ~File();
+    
     Skis *ski;
+    
     void readTechnologies(std::string);
     void readCategories(std::string);
     void readModels(std::string);
     void readFromPath(std::string, std::list<std::string>&);
-    void readParameters(std::string, std::list<int>&, std::list<double>&, std::list<int>&);
+    void readParameters(std::string,
+                        std::list<int>&,
+                        std::list<double>&,
+                        std::list<int>&);
     
 };

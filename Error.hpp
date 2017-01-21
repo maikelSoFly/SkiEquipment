@@ -8,9 +8,12 @@
 
 class Error {
     int noError;
+    
 public:
+    
     Error(int e);
     ~Error();
+    
     enum {Brand, Season, Category, Model};
     void what();
 };

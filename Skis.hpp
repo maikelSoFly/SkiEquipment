@@ -34,6 +34,10 @@ public:
     std::list<int> &getLenghts();
     std::list<double> &getRadius();
     std::list<int> &getSidecut();
+    std::string getBrand();
+    std::string getSeason();
+    std::string getModelName();
+    std::string getCategory();
     
     void setBrand(std::string);
     void setSeason(std::string);
