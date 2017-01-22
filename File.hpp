@@ -14,6 +14,8 @@ class File {
     
     std::fstream file;
     std::string path;
+    static int id;
+    int iid;
     
 public:
     
@@ -30,5 +32,6 @@ public:
                         std::list<int>&,
                         std::list<double>&,
                         std::list<int>&);
+    bool writeToLocation(std::string,  Skis*&);
     
 };

@@ -15,12 +15,17 @@
 #include "Error.hpp"
 
 class Skis : public Parameters {
+    
+    static int id;
+    int iid;
+    
     std::string _brand;
     std::string _season;
     std::string _category;
     std::string _modelName;
     std::list<std::string> _models;
     std::list<std::string> _categories;
+    
     friend class File;
 
 public:

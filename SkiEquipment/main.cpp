@@ -9,9 +9,15 @@
 #include <iostream>
 #include <iomanip>
 #include "File.hpp"
-#include <curses.h>
 
 using namespace std;
+
+string pathCompiler(string s1, string s2) {
+    string absolutePath = "";
+    char bs = '/';
+    absolutePath = s1 + bs + s2;
+    return absolutePath;
+}
 
 string pathCompiler(string s1, string s2, string s3) {
     string absolutePath = "";
@@ -42,6 +48,9 @@ int main() {
     bool loop = 0;
     char c = '\0';
     bool isOK;
+    File writeFile;
+    string writePath;
+    char willSave = 0;
     
     while (!loop){
         
@@ -144,8 +153,10 @@ int main() {
                                         file->ski->getModelName(),
                                         "Technologies.csv"),
                            file->ski->getTechnologies());
+        
         cout << endl;
         file->ski->printTechnologies();
+        
         file->readParameters(pathCompiler(file->ski->getBrand(),
                                           file->ski->getSeason(),
                                           file->ski->getCategory(),
@@ -158,6 +169,7 @@ int main() {
         file->ski->printParameters();
         file->ski->printTargetIndicator();
         
+        
         if (compare) {
             file->ski->compare(*save);
             compare = 0;
@@ -166,12 +178,12 @@ int main() {
         cout << "\nDo you want to compare to another skis? Y/N\n";
         cin >> c;
         if (c == 'Y' || c == 'y') {
-            save = *&file->ski;
             for (int i = 0; i < 20; i++) cout << "     ";
             cout << "> Copy created\n";
             compare = 1;
         }
         
+        save = *&file->ski; //Saving last skis everytime
         delete file;
         c = '\0';
         
@@ -183,7 +195,21 @@ int main() {
             }
         
     }
-   
+    
+    cout << "> Do you want to save details of last skis? Y/N\n";
+    cin >> willSave;
+    
+    if (willSave == 'Y' || willSave == 'y') {
+        bool writeOK = 0;
+        cout << "\n> Type location to save skis details";
+        do {
+            cout << "\n> ~/";
+            cin >> writePath;
+            string fileName = save->getModelName() + "(details).csv";
+            writeOK = writeFile.writeToLocation(pathCompiler(writePath, fileName), save);
+        } while (!writeOK);
+    }
+    
     delete save;
 
     return 0;

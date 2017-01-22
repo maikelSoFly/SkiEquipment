@@ -11,6 +11,8 @@
 #include <iostream>
 using namespace std;
 
+int Skis::id = 0;
+
 Skis::Skis(string brand, string season) {
     _brand = brand;
     _season = season;
@@ -18,12 +20,14 @@ Skis::Skis(string brand, string season) {
 
 Skis::Skis() {
     for (int i = 0; i < 9; i++) targetIndicator[i] = 0;
+    
+    iid = id;
     for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> Skis object created\n";
+    cout << "> Ski object (id " << id++ << ") created.\n";
 }
 Skis::~Skis() {
     for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> Skis object removed from memory\n";
+    cout << "> Ski object (iid " << iid << ") removed from memory.\n";
 }
 
 bool Skis::isSameWord(string str1, string str2) {
