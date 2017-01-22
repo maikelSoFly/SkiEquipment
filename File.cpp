@@ -40,8 +40,19 @@ void File::readFromPath(string _path, list<string> &list) {
             list.push_back(field);
         }
         
+        for (int i = 0; i < 20; i++) cout << "     ";
+        cout << "> ";
+        for (int i = 0; i < _path.length(); ++i) {
+            if (i == 47) {
+                cout << endl;
+                for (int i = 0; i < 20; i++) cout << "     ";
+            }
+            cout << _path[i];
+        }
+
         file.close();
     } else cout << "\n> Reading file error!\n";
+    
 }
 
 void File::readParameters(string _path,
@@ -75,6 +86,18 @@ void File::readParameters(string _path,
             getline(file, field, ';');
             ski->targetIndicator[stoi(field)] = 1;
         }
+        
+        for (int i = 0; i < 20; i++) cout << "     ";
+        cout << "> ";
+        for (int i = 0; i < _path.length(); ++i) {
+            if (i == 47) {
+                cout << endl;
+                for (int i = 0; i < 20; i++) cout << "     ";
+            }
+            cout << _path[i];
+        }
+
+        
         file.close();
         
     }else cout << "\n> Reading file error (Paramaters)\n";

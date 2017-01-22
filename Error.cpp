@@ -13,22 +13,24 @@ using namespace std;
 
 Error::Error(int e) {
     noError = e;
+    for (int i = 0; i < 20; i++) cout << "     ";
+    cout << "> Exception " << noError;
 }
 
 void Error::what() {
     
     switch (noError) {
         case Brand:
-            cout << "\nSorry, there is no such brand.\n";
+            cout << "\n> Sorry, there is no such brand. Try again...\n";
             break;
         case Season:
-            cout << "\nSorry, there is no such season.\n";
+            cout << "\n> Sorry, there is no such season. Try again...\n";
             break;
         case Category:
-            cout << "\nSorry, there is no such category.\n";
+            cout << "\n> Sorry, there is no such category. Try again...\n";
             break;
         case Model:
-            cout << "\nSory, there is no such model.\n";
+            cout << "\n> Sory, there is no such model. Try again...\n";
             break;
         default:
             break;

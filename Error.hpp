@@ -14,6 +14,6 @@ public:
     Error(int e);
     ~Error();
     
-    enum {Brand, Season, Category, Model};
+    enum  {Brand, Season, Category, Model};
     void what();
 };

@@ -41,106 +41,149 @@ int main() {
     bool compare = 0;
     bool loop = 0;
     char c = '\0';
-    try {
-        while (!loop){
-            
-            loop = 0;
-            
-            File *file= new File();
-            
-            cout << "Ski equipment > Skis > Brands:\n\n";
-            cout
-            << setw(15) << "HEAD"
-            << setw(15) << "Rossignol"
-            << setw(15) << "Voelkl"
-            << setw(15) << "Fischer"
-            << setw(15) << "Atomic"
-            << endl;
-            
-            cin >> brand;
-            
-            file->ski->setBrand(brand);
-            
-            cout
-            << setw(15) << "14-15"
-            << setw(15) << "15-16"
-            << setw(15) << "16-17"
-            << endl;
-            
-            cin >> season;
-            
-            file->ski->setSeason(season);
-            file->readFromPath(pathCompiler(file->ski->getBrand(),
-                                            file->ski->getSeason(),
-                                            "Categories.csv"),
-                               file->ski->getCategories());
-            
-            cout << endl;
-            file->ski->printCategories();
-            cin >> category;
-            
-            file->ski->setCategory(category);
-            file->readFromPath(pathCompiler(file->ski->getBrand(),
-                                            file->ski->getSeason(),
-                                            file->ski->getCategory(),
-                                            "Models.csv"),
-                               file->ski->getModels());
-            
-            cout << endl;
-            file->ski->printModels();
-            cin.ignore();
-            getline(cin, model);
-            
-            file->ski->setModelName(model);
-            file->readFromPath(pathCompiler(file->ski->getBrand(),
-                                            file->ski->getSeason(),
-                                            file->ski->getCategory(),
-                                            file->ski->getModelName(),
-                                            "Technologies.csv"),
-                               file->ski->getTechnologies());
-            cout << endl;
-            file->ski->printTechnologies();
-            file->readParameters(pathCompiler(file->ski->getBrand(),
-                                              file->ski->getSeason(),
-                                              file->ski->getCategory(),
-                                              file->ski->getModelName(),
-                                              "Parameters.csv"),
-                                 file->ski->getLenghts(),
-                                 file->ski->getRadius(),
-                                 file->ski->getSidecut());
-            
-            file->ski->printParameters();
-            file->ski->printTargetIndicator();
-            
-            if (compare) {
-                file->ski->compare(*save);
-                compare = 0;
-            }
-            
-            cout << "\nDo you want to compare to another skis? Y/N\n";
-            cin >> c;
-            if (c == 'Y' || c == 'y') {
-                save = *&file->ski;
-                for (int i = 0; i < 20; i++) cout << "     ";
-                cout << "> Copy created\n";
-                compare = 1;
-            }
-            
-            delete file;
-            c = '\0';
-            
-                while (c != 'Y' && c != 'N' & c != 'n' && c != 'y' && !compare) {
-                    cout << "Do you want to search for another skis? Y/N\n";
-                    cin >> c;
-                    if (c == 'N' || c == 'n') loop = 1;
-                    cout << endl;
-                }
-            
-        }
-    } catch (Error &e) {
-        e.what();
-    }
+    bool isOK;
     
+    while (!loop){
+        
+        loop = 0;
+        
+        File *file= new File();
+        
+        cout << "Ski equipment > Skis > Brands:\n\n";
+        cout
+        << setw(15) << "HEAD"
+        << setw(15) << "Rossignol"
+        << setw(15) << "Voelkl"
+        << setw(15) << "Fischer"
+        << setw(15) << "Atomic"
+        << endl;
+        
+        do {
+            isOK = 1;
+            try {
+                
+                cin >> brand;
+                file->ski->setBrand(brand);
+            }
+            catch (Error &e) {
+                e.what();
+                isOK = 0;
+            }
+            
+        }while (isOK == 0);
+            
+        cout
+        << setw(15) << "14-15"
+        << setw(15) << "15-16"
+        << setw(15) << "16-17"
+        << endl;
+        
+        do {
+            isOK = 1;
+            try {
+                
+                cin >> season;
+                file->ski->setSeason(season);
+            }
+            catch (Error &e) {
+                e.what();
+                isOK = 0;
+            }
+            
+        }while (isOK == 0);
+        
+        file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                        file->ski->getSeason(),
+                                        "Categories.csv"),
+                           file->ski->getCategories());
+        
+        cout << endl;
+        file->ski->printCategories();
+        
+        do {
+            isOK = 1;
+            try {
+                
+                cin >> category;
+                file->ski->setCategory(category);
+            }
+            catch (Error &e) {
+                e.what();
+                isOK = 0;
+            }
+            
+        }while (isOK == 0);
+        
+        file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                        file->ski->getSeason(),
+                                        file->ski->getCategory(),
+                                        "Models.csv"),
+                           file->ski->getModels());
+        
+        cout << endl;
+        file->ski->printModels();
+        
+        cin.ignore();
+        do {
+            isOK = 1;
+            try {
+                
+                getline(cin, model);
+                file->ski->setModelName(model);
+            }
+            catch (Error &e) {
+                e.what();
+                isOK = 0;
+            }
+            
+        }while (isOK == 0);
+        
+        file->readFromPath(pathCompiler(file->ski->getBrand(),
+                                        file->ski->getSeason(),
+                                        file->ski->getCategory(),
+                                        file->ski->getModelName(),
+                                        "Technologies.csv"),
+                           file->ski->getTechnologies());
+        cout << endl;
+        file->ski->printTechnologies();
+        file->readParameters(pathCompiler(file->ski->getBrand(),
+                                          file->ski->getSeason(),
+                                          file->ski->getCategory(),
+                                          file->ski->getModelName(),
+                                          "Parameters.csv"),
+                             file->ski->getLenghts(),
+                             file->ski->getRadius(),
+                             file->ski->getSidecut());
+        
+        file->ski->printParameters();
+        file->ski->printTargetIndicator();
+        
+        if (compare) {
+            file->ski->compare(*save);
+            compare = 0;
+        }
+        
+        cout << "\nDo you want to compare to another skis? Y/N\n";
+        cin >> c;
+        if (c == 'Y' || c == 'y') {
+            save = *&file->ski;
+            for (int i = 0; i < 20; i++) cout << "     ";
+            cout << "> Copy created\n";
+            compare = 1;
+        }
+        
+        delete file;
+        c = '\0';
+        
+            while (c != 'Y' && c != 'N' & c != 'n' && c != 'y' && !compare) {
+                cout << "Do you want to search for another skis? Y/N\n";
+                cin >> c;
+                if (c == 'N' || c == 'n') loop = 1;
+                cout << endl;
+            }
+        
+    }
+   
     delete save;
 
     return 0;

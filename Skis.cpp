@@ -370,7 +370,9 @@ void Skis::printParameters() {
             itr++;
             if (*id != 0){
                 double db = *id;
-                cout << db/10;
+                if (db > 100 && itr < 2)
+                    cout << db/10;
+                else cout << db;
             }
             if (itr < 2) {
                 cout << "m for ";

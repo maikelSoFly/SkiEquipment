@@ -29,6 +29,7 @@ public:
     Skis(std::string, std::string);
     ~Skis();
     
+    //getters
     std::list<std::string> &getCategories();
     std::list<std::string> &getModels();
     std::list<int> &getLenghts();
@@ -39,6 +40,7 @@ public:
     std::string getModelName();
     std::string getCategory();
     
+    //setters
     void setBrand(std::string);
     void setSeason(std::string);
     void setModelName(std::string);
