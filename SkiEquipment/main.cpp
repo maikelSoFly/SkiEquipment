@@ -12,7 +12,7 @@
 
 using namespace std;
 
-string pathCompiler(string s1, string s2) {
+string pathCompiler(string s1, string s2) { //This one is only for writing to a file
     string absolutePath = "";
     char bs = '/';
     absolutePath = s1 + bs + s2;
