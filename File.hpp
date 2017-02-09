@@ -10,12 +10,18 @@
 #include "Skis.hpp"
 #include <list>
 
+
 class File {
     
     std::fstream file;
     std::string path;
     static int id;
     int iid;
+    
+    
+    template <typename T>
+    friend void printLog(std::string, T *, char);
+    friend void printLog(std::string);
     
 public:
     

@@ -12,33 +12,19 @@
 
 using namespace std;
 
-string pathCompiler(string s1, string s2) { //This one is only for writing to a file
-    string absolutePath = "";
+
+string pathCompiler(string s1 = "", string s2 = "", string s3 = "", string s4 = "", string s5 = "") {
     char bs = '/';
-    absolutePath = s1 + bs + s2;
+    string absolutePath = s1 + bs + s2;
+    if(s3 != "") {
+        absolutePath = "Data/" + s1 + bs + s2 + bs + s3;
+        if (s4 != "") absolutePath += bs + s4; {
+            if (s5 != "") absolutePath += bs + s5;
+        }
+    }
     return absolutePath;
 }
 
-string pathCompiler(string s1, string s2, string s3) {
-    string absolutePath = "";
-    char bs = '/';
-    absolutePath = "Data/" + s1 + bs + s2 + bs + s3;
-    return absolutePath;
-}
-
-string pathCompiler(string s1, string s2, string s3, string s4) {
-    string absolutePath = "";
-    char bs = '/';
-    absolutePath = "Data/" + s1 + bs + s2 + bs + s3 + bs + s4;
-    return absolutePath;
-}
-
-string pathCompiler(string s1, string s2, string s3, string s4, string s5) {
-    string absolutePath = "";
-    char bs = '/';
-    absolutePath = "Data/" + s1 + bs + s2 + bs + s3 + bs + s4 + bs + s5;
-    return absolutePath;
-}
 
 int main() {
     
@@ -60,11 +46,11 @@ int main() {
         
         cout << "Ski equipment > Skis > Brands:\n\n";
         cout
-        << setw(15) << "HEAD"
-        << setw(15) << "Rossignol"
-        << setw(15) << "Voelkl"
-        << setw(15) << "Fischer"
-        << setw(15) << "Atomic"
+        << setw(19) << "•HEAD•"
+        << setw(18) << "•Rossignol•"
+        << setw(15) << "•Voelkl•"
+        << setw(15) << "•Fischer•"
+        << setw(15) << "•Atomic•"
         << endl;
         
         do {
@@ -82,9 +68,9 @@ int main() {
         }while (isOK == 0);
             
         cout
-        << setw(15) << "14-15"
-        << setw(15) << "15-16"
-        << setw(15) << "16-17"
+        << setw(15) << "•14-15•"
+        << setw(15) << "•15-16•"
+        << setw(15) << "•16-17•"
         << endl;
         
         do {
@@ -155,7 +141,8 @@ int main() {
                            file->ski->getTechnologies());
         
         cout << endl;
-        file->ski->printTechnologies();
+        if (!compare)
+            file->ski->printTechnologies();
         
         file->readParameters(pathCompiler(file->ski->getBrand(),
                                           file->ski->getSeason(),
@@ -165,9 +152,10 @@ int main() {
                              file->ski->getLenghts(),
                              file->ski->getRadius(),
                              file->ski->getSidecut());
-        
-        file->ski->printParameters();
-        file->ski->printTargetIndicator();
+        if (!compare) {
+            file->ski->printParameters();
+            file->ski->printTargetIndicator();
+        }
         
         
         if (compare) {
@@ -177,28 +165,31 @@ int main() {
         
         cout << "\nDo you want to compare to another skis? Y/N\n";
         cin >> c;
-        if (c == 'Y' || c == 'y') {
-            for (int i = 0; i < 20; i++) cout << "     ";
-            cout << "> Copy created\n";
+        
+        cin.ignore(20,'\n');
+
+        if ((c == 'Y' || c == 'y') && cin.good()) {
+            printLog<File>("Copy created.");
             compare = 1;
         }
         
-        save = *&file->ski; //Saving last skis everytime
+        save = file->ski; //Saving last skis everytime
         delete file;
         c = '\0';
         
-            while (c != 'Y' && c != 'N' & c != 'n' && c != 'y' && !compare) {
+            while (c != 'Y' && c != 'N' && c != 'n' && c != 'y' && !compare) {
                 cout << "Do you want to search for another skis? Y/N\n";
                 cin >> c;
                 if (c == 'N' || c == 'n') loop = 1;
                 cout << endl;
+                cin.ignore(20,'\n');
             }
         
     }
     
     cout << "> Do you want to save details of last skis? Y/N\n";
     cin >> willSave;
-    
+    cin.ignore(20,'\n');
     if (willSave == 'Y' || willSave == 'y') {
         bool writeOK = 0;
         cout << "\n> Type location to save skis details";
@@ -211,6 +202,7 @@ int main() {
     }
     
     delete save;
+    printLog<File>("Copy removed from memory.");
 
     return 0;
 }

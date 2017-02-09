@@ -11,8 +11,7 @@
 #include <iostream>
 using namespace std;
 
-Error::Error(int e) {
-    noError = e;
+Error::Error(int e) : noError(e) {
     for (int i = 0; i < 20; i++) cout << "     ";
     cout << "> Exception " << noError;
 }

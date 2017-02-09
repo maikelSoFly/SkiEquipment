@@ -13,21 +13,14 @@ using namespace std;
 
 int Skis::id = 0;
 
-Skis::Skis(string brand, string season) {
-    _brand = brand;
-    _season = season;
-}
+Skis::Skis(string brand, string season) : _brand(brand), _season(season) {}
 
-Skis::Skis() {
+Skis::Skis() : iid(id) {
     for (int i = 0; i < 9; i++) targetIndicator[i] = 0;
-    
-    iid = id;
-    for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> Ski object (id " << id++ << ") created.\n";
+    printLog("Skis", this, 'c');
 }
 Skis::~Skis() {
-    for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> Ski object (iid " << iid << ") removed from memory.\n";
+    printLog("Skis", this, 'd');
 }
 
 bool Skis::isSameWord(string str1, string str2) {
@@ -178,11 +171,23 @@ void Skis::compare(const Skis& ski) {
     list<string>::const_iterator i;
     list<string>::const_iterator i2;
     i2 = ski._technologies.begin();
+    size_t iter = 0;
+   
+    
     for( i = _technologies.begin(); i != _technologies.end(); ++i) {
-        cout << "    " << *i << endl;
-        if (i2 != ski._technologies.end()) cout << "                                               " << *i2;
+        cout << endl << "    " << *i << endl;
+        
+        if (iter < ski._technologies.size()) cout << "                                               " << *i2;
+        
+        ++i2;
+        ++iter;
+    }
+    
+    while (i2 != ski._technologies.end() && iter < ski._technologies.size()) {
+        cout << "\n" << "                                               " << *i2 << endl;
         ++i2;
     }
+    
     cout << endl << endl;
     
     cout << "Ski > COMPARITION > Parameters comparition:\n\n";
@@ -308,9 +313,9 @@ void Skis::printCategories() {
         
         list<string>::const_iterator i;
         for( i = _categories.begin(); i != _categories.end(); ++i) {
-            cout << setw(15) << *i;
+            cout << setw(15) << "•" << *i << "•";
         }
-        cout << endl;
+        cout <<endl;
     } else cout << "\n> No categories\n\n";
     
 }
@@ -398,4 +403,16 @@ void Skis::printParameters() {
         }
         cout << endl;
     }else cout << "\n> No sidecut\n\n";
+}
+
+void Skis::printTargetIndicator() {
+    cout << "\nAdvanced level:\n"
+    << "beginners                            experts\n    |";
+    
+    for (int i = 0; i < 9; i++) {
+        if(!targetIndicator[i]) cout << "   |";
+        else cout << "///|";
+    }
+    
+    cout << endl << endl;
 }

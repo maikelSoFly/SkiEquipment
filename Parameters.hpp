@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include <list>
+#include <iostream>
 
 class Parameters {
     
@@ -20,10 +21,14 @@ protected:
     std::list<int> _sideCut;
     std::list<std::string> _technologies;
     bool targetIndicator[9];
+    std::string path; //hack for printLog
     
 public:
     
-    virtual void printTargetIndicator();
+    virtual void printTargetIndicator() = 0;
     virtual std::list<std::string> &getTechnologies();
 };
+
+
+
 

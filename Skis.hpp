@@ -13,6 +13,8 @@
 #include "Parameters.hpp"
 #include <list>
 #include "Error.hpp"
+#include "pLog.cpp"
+
 
 class Skis : public Parameters {
     
@@ -27,13 +29,20 @@ class Skis : public Parameters {
     std::list<std::string> _categories;
     
     friend class File;
+    
+    template<typename T>
+    friend void printLog(std::string, T *, char);
+    
+    friend void printLog(std::string);
+    
+    
 
 public:
     Skis();
     Skis(std::string);
     Skis(std::string, std::string);
     ~Skis();
-    
+    void printTargetIndicator();
     //getters
     std::list<std::string> &getCategories();
     std::list<std::string> &getModels();

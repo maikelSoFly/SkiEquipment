@@ -13,17 +13,14 @@ using namespace std;
 
 int File::id = 0;
 
-File::File(){
+File::File() : iid(id) {
     ski = new Skis();
-    iid = id;
-    for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> File object (id " << id++ << ") created.\n";
+    printLog("File", this, 'c');
     
 }
 
 File::~File() {
-    for (int i = 0; i < 20; i++) cout << "     ";
-    cout << "> File object (iid " << iid << ") removed from memory.\n";
+    printLog("File", this, 'd');
 }
 
 void File::readFromPath(string _path, list<string> &list) {
@@ -44,15 +41,7 @@ void File::readFromPath(string _path, list<string> &list) {
             list.push_back(field);
         }
         
-        for (int i = 0; i < 20; i++) cout << "     ";
-        cout << "> OPEN: ~/";
-        for (int i = 0; i < _path.length(); ++i) {
-            if (i == 39) {
-                cout << endl;
-                for (int i = 0; i < 20; i++) cout << "     ";
-            }
-            cout << _path[i];
-        }
+        printLog("File", this, 'p');
 
         file.close();
     } else cout << "\n> Reading from file failed!\n";
@@ -91,17 +80,8 @@ void File::readParameters(string _path,
             ski->targetIndicator[stoi(field)] = 1;
         }
         
-        for (int i = 0; i < 20; i++) cout << "     ";
-        cout << "> OPEN: ~/";
-        for (int i = 0; i < _path.length(); ++i) {
-            if (i == 39) {
-                cout << endl;
-                for (int i = 0; i < 20; i++) cout << "     ";
-            }
-            cout << _path[i];
-        }
+        printLog("File", this, 'p');
 
-        
         file.close();
         
     }else cout << "\n> Reading from file failed (Paramaters)\n";
@@ -169,3 +149,5 @@ bool File::writeToLocation(string _path,  Skis*& ski) {
    
     return false;
 }
+
+
