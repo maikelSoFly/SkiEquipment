@@ -10,7 +10,7 @@
 #include <iostream>
 #include <string>
 
-
+//pLog is for printing log messages in the right margin
 
 template <typename T>
 void printLog(std::string objName, T *t = NULL, char opt = ' ') { /* objName: name of object, *t: pointer to object, opt(c): for constructor,
@@ -35,7 +35,8 @@ void printLog(std::string objName, T *t = NULL, char opt = ' ') { /* objName: na
                 break;
             default: std::cout << "\n> PrintLog error\n";
         }
-    }else {
+    }
+    else { //When function is called with only one argument
         for (int i = 0; i < 20; i++) std::cout << "     ";
         std::cout << "> " << objName << std::endl;
     }

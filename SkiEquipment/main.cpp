@@ -12,49 +12,39 @@
 
 using namespace std;
 
-
-string pathCompiler(string s1 = "", string s2 = "", string s3 = "", string s4 = "", string s5 = "") {
-    char bs = '/';
-    string absolutePath = s1 + bs + s2;
-    if(s3 != "") {
-        absolutePath = "Data/" + s1 + bs + s2 + bs + s3;
-        if (s4 != "") absolutePath += bs + s4; {
-            if (s5 != "") absolutePath += bs + s5;
-        }
-    }
-    return absolutePath;
-}
-
+void askQuestion (string, bool&, string = "");
+string pathCompiler(string = "", string = "", string = "", string = "", string = "");
 
 int main() {
     
-    Skis *save = NULL;
-    string brand, season, category, model, path, type;
-    bool compare = 0;
-    bool loop = 0;
-    char c = '\0';
-    bool isOK;
+//  ••••••••••••••••••••••
     File writeFile;
-    string writePath;
-    char willSave = 0;
+    Skis *save = NULL;
     
-    while (!loop){
-        
-        loop = 0;
+    string brand, season, category, model, writePath;
+    
+//  flags
+    bool cmpFlag = false;
+    bool loopFlag = true;
+    bool saveFlag = false;
+    bool exceptionFlag = false;
+//  ••••••••••••••••••••••
+    
+    
+    while (loopFlag){
         
         File *file= new File();
         
         cout << "Ski equipment > Skis > Brands:\n\n";
-        cout
-        << setw(19) << "•HEAD•"
-        << setw(18) << "•Rossignol•"
-        << setw(15) << "•Voelkl•"
-        << setw(15) << "•Fischer•"
-        << setw(15) << "•Atomic•"
-        << endl;
+        cout << setw(20) << "• HEAD •"
+             << setw(25) << "• Rossignol •"
+             << setw(20) << "• Voelkl •"
+             << setw(20) << "• Fischer •"
+             << setw(20) << "• Atomic •"
+             << endl;
         
         do {
-            isOK = 1;
+            exceptionFlag = false;
             try {
                 
                 cin >> brand;
@@ -62,19 +52,18 @@ int main() {
             }
             catch (Error &e) {
                 e.what();
-                isOK = 0;
+                exceptionFlag = true;
             }
             
-        }while (isOK == 0);
+        }while (exceptionFlag);
             
-        cout
-        << setw(15) << "•14-15•"
-        << setw(15) << "•15-16•"
-        << setw(15) << "•16-17•"
-        << endl;
+        cout << setw(21) << "• 14-15 •"
+             << setw(25) << "• 15-16 •"
+             << setw(25) << "• 16-17 •"
+             << endl;
         
         do {
-            isOK = 1;
+            exceptionFlag = false;
             try {
                 
                 cin >> season;
@@ -82,10 +71,10 @@ int main() {
             }
             catch (Error &e) {
                 e.what();
-                isOK = 0;
+                exceptionFlag = true;
             }
             
-        }while (isOK == 0);
+        }while (exceptionFlag);
         
         file->readFromPath(pathCompiler(file->ski->getBrand(),
                                         file->ski->getSeason(),
@@ -96,7 +85,7 @@ int main() {
         file->ski->printCategories();
         
         do {
-            isOK = 1;
+            exceptionFlag = false;
             try {
                 
                 cin >> category;
@@ -104,10 +93,10 @@ int main() {
             }
             catch (Error &e) {
                 e.what();
-                isOK = 0;
+                exceptionFlag = true;
             }
             
-        }while (isOK == 0);
+        }while (exceptionFlag);
         
         file->readFromPath(pathCompiler(file->ski->getBrand(),
                                         file->ski->getSeason(),
@@ -120,7 +109,7 @@ int main() {
         
         cin.ignore();
         do {
-            isOK = 1;
+            exceptionFlag = false;
             try {
                 
                 getline(cin, model);
@@ -128,10 +117,10 @@ int main() {
             }
             catch (Error &e) {
                 e.what();
-                isOK = 0;
+                exceptionFlag = true;
             }
             
-        }while (isOK == 0);
+        }while (exceptionFlag);
         
         file->readFromPath(pathCompiler(file->ski->getBrand(),
                                         file->ski->getSeason(),
@@ -141,7 +130,7 @@ int main() {
                            file->ski->getTechnologies());
         
         cout << endl;
-        if (!compare)
+        if (!cmpFlag)
             file->ski->printTechnologies();
         
         file->readParameters(pathCompiler(file->ski->getBrand(),
@@ -152,46 +141,34 @@ int main() {
                              file->ski->getLenghts(),
                              file->ski->getRadius(),
                              file->ski->getSidecut());
-        if (!compare) {
+        if (!cmpFlag) {
             file->ski->printParameters();
             file->ski->printTargetIndicator();
         }
         
         
-        if (compare) {
-            file->ski->compare(*save);
-            compare = 0;
+        if (cmpFlag) {
+            if (file->ski->getModelName() != save->getModelName()) {
+                file->ski->compare(*save);
+                cmpFlag = false;
+            }
+            else cout << "\n> Comparison of identical skis. Try again.\n";
         }
         
-        cout << "\nDo you want to compare to another skis? Y/N\n";
-        cin >> c;
-        
-        cin.ignore(20,'\n');
-
-        if ((c == 'Y' || c == 'y') && cin.good()) {
-            printLog<File>("Copy created.");
-            compare = 1;
-        }
+        if (!cmpFlag)
+        askQuestion("Do you want to compare to another skis?", cmpFlag, "Copy created.");
         
         save = file->ski; //Saving last skis everytime
         delete file;
-        c = '\0';
-        
-            while (c != 'Y' && c != 'N' && c != 'n' && c != 'y' && !compare) {
-                cout << "Do you want to search for another skis? Y/N\n";
-                cin >> c;
-                if (c == 'N' || c == 'n') loop = 1;
-                cout << endl;
-                cin.ignore(20,'\n');
-            }
+
+        if (!cmpFlag)
+            askQuestion("Do you want to search for another skis?", loopFlag);
         
     }
     
-    cout << "> Do you want to save details of last skis? Y/N\n";
-    cin >> willSave;
-    cin.ignore(20,'\n');
-    if (willSave == 'Y' || willSave == 'y') {
-        bool writeOK = 0;
+    askQuestion("Do you want to save details of last skis?", saveFlag);
+    if (saveFlag) {
+        bool writeOK = false;
         cout << "\n> Type location to save skis details";
         do {
             cout << "\n> ~/";
@@ -205,4 +182,36 @@ int main() {
     printLog<File>("Copy removed from memory.");
 
     return 0;
+}
+
+
+
+
+void askQuestion (string qst, bool &flag, string mssg) {
+
+    char answ = '\0';
+    cout << endl << qst << " Y/N\n";
+    
+    while(answ != 'Y' && answ != 'y' && answ != 'N' && answ != 'n') {
+        cin >> answ;
+    }
+    
+    if (answ == 'Y' || answ == 'y') {
+        flag = true;
+        if (mssg != "")
+            printLog<File>(mssg);
+    }
+    else flag = false;
+}
+
+string pathCompiler(string s1, string s2, string s3, string s4, string s5) {
+    char bs = '/';
+    string absolutePath = s1 + bs + s2;
+    if(s3 != "") {
+        absolutePath = "Data/" + s1 + bs + s2 + bs + s3;
+        if (s4 != "") absolutePath += bs + s4; {
+            if (s5 != "") absolutePath += bs + s5;
+        }
+    }
+    return absolutePath;
 }

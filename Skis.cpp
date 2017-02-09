@@ -161,19 +161,22 @@ void Skis::operator=(const Skis& ski) {
 }
 
 void Skis::compare(const Skis& ski) {
-    cout << endl << "\nSki > COMPARITION\n\n";
-    cout << "   Brand:  " <<  this->_brand << "  /  " << ski._brand << endl;
-    cout << "   Model:  " << this->_modelName << "  /  " << ski._modelName << endl;
-    cout << "   Season:  " << this->_season << "  /  " << ski._season << endl;
-    cout << "   Category:  " << this->_category << "  /  " << ski._category << endl << endl;
-    cout << "Ski > COMPARITION > Technologies comparition:\n\n";
+    cout << endl << "\nSki > COMPARITION\n\n"
+         << "   Brand:  " <<  this->_brand << "  /  " << ski._brand << endl
+         << "   Model:  " << this->_modelName << "  /  " << ski._modelName << endl
+         << "   Season:  " << this->_season << "  /  " << ski._season << endl
+         << "   Category:  " << this->_category << "  /  " << ski._category << endl << endl
+         << "Ski > COMPARITION > Technologies comparition:\n\n";
     
     list<string>::const_iterator i;
     list<string>::const_iterator i2;
     i2 = ski._technologies.begin();
     size_t iter = 0;
-   
     
+    
+   
+    //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••TECHNOLOGIES
+    //LEFT
     for( i = _technologies.begin(); i != _technologies.end(); ++i) {
         cout << endl << "    " << *i << endl;
         
@@ -182,17 +185,20 @@ void Skis::compare(const Skis& ski) {
         ++i2;
         ++iter;
     }
-    
+    //RIGHT
     while (i2 != ski._technologies.end() && iter < ski._technologies.size()) {
         cout << "\n" << "                                               " << *i2 << endl;
         ++i2;
     }
-    
     cout << endl << endl;
     
+    
+    
+    //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••PARAMETERS
     cout << "Ski > COMPARITION > Parameters comparition:\n\n";
-    cout << "    Lenght:  ";
     list<int>::const_iterator iP;
+    //LEFT
+    cout << "    Lenght:  ";
     int itrP = 0;
     for( iP = _lenghts.begin(); iP != _lenghts.end(); ++iP) {
         itrP++;
@@ -202,8 +208,8 @@ void Skis::compare(const Skis& ski) {
         }
     }
     itrP = 0;
+    //RIGHT
     cout << "cm        ";
-    
     for( iP = ski._lenghts.begin(); iP != ski._lenghts.end(); ++iP) {
         itrP++;
         cout << *iP;
@@ -213,7 +219,12 @@ void Skis::compare(const Skis& ski) {
     }
     itrP = 0;
     cout << "cm            " << endl;
+    
+    
+    
+    //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••RADIUS
     list<double>::const_iterator iPd;
+    //LEFT
     cout << "    Radius:  ";
     for( iPd = _radius.begin(); iPd != _radius.end(); ++iPd) {
         itrP++;
@@ -226,9 +237,10 @@ void Skis::compare(const Skis& ski) {
         if (itrP < 2) {
             cout << "m for ";
         }
-    }cout << "cm            ";
+    }
     itrP = 0;
-    
+    //RIGHT
+    cout << "cm            ";
     for( iPd = ski._radius.begin(); iPd != ski._radius.end(); ++iPd) {
         itrP++;
         if (*iPd != 0){
@@ -244,6 +256,10 @@ void Skis::compare(const Skis& ski) {
     }cout << "cm\n";
     itrP = 0;
     
+    
+    
+    //•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••SIDECUT
+    //LEFT
     cout << "    Sidecut:  ";
     for( iP = _sideCut.begin(); iP != _sideCut.end(); ++iP) {
         itrP++;
@@ -254,6 +270,7 @@ void Skis::compare(const Skis& ski) {
     }
     itrP = 0;
     cout << "           ";
+    //RIGHT
     for( iP = ski._sideCut.begin(); iP != ski._sideCut.end(); ++iP) {
         itrP++;
         cout << *iP;
@@ -262,17 +279,22 @@ void Skis::compare(const Skis& ski) {
         }
     }
     cout << endl << endl;
-
-    cout << "Ski > COMPARITION > Advanced level comparition comparition:\n\n";
-    cout << "beginners                            experts"
-    << "            "
-    << "beginners                            experts"
-    <<"\n    |";
+    
+    
+    
+    //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••ADVANCED LEVEL
+    cout << "Ski > COMPARITION > Advanced level comparition comparition:\n\n"
+         << "beginners                            experts"
+         << "            "
+         << "beginners                            experts"
+         <<"\n    |";
+    //LEFT
     for (int i = 0; i < 9; i++) {
         if(!targetIndicator[i]) cout << "   |";
         else cout << "///|";
         
     }
+    //RIGHT
     cout << "                   |";
     for (int i = 0; i < 9; i++) {
         if(!ski.targetIndicator[i]) cout << "   |";
@@ -284,16 +306,15 @@ void Skis::compare(const Skis& ski) {
 
 void Skis::printTechnologies() {
     if (_technologies.size() != 0) {
-        cout
-        << "\nSki > "
-        << _brand
-        << " > "
-        << _season
-        << " > "
-        << _category
-        << " > "
-        << _modelName
-        << " > Technologies:\n\n";
+        cout << "\nSki > "
+             << _brand
+             << " > "
+             << _season
+             << " > "
+             << _category
+             << " > "
+             << _modelName
+             << " > Technologies:\n\n";
         
         list<string>::const_iterator i;
         for( i = _technologies.begin(); i != _technologies.end(); ++i)
@@ -304,16 +325,15 @@ void Skis::printTechnologies() {
 
 void Skis::printCategories() {
     if (_categories.size() != 0) {
-        cout
-        << "\nSki > "
-        << _brand
-        << " > "
-        << _season
-        << " > Categories:\n\n";
+        cout << "\nSki > "
+             << _brand
+             << " > "
+             << _season
+             << " > Categories:\n\n";
         
         list<string>::const_iterator i;
         for( i = _categories.begin(); i != _categories.end(); ++i) {
-            cout << setw(15) << "•" << *i << "•";
+            cout << setw(12) << "• " << *i << " •";
         }
         cout <<endl;
     } else cout << "\n> No categories\n\n";
@@ -322,14 +342,13 @@ void Skis::printCategories() {
 
 void Skis::printModels() {
     if (_models.size() != 0) {
-        cout
-        << "\nSki > "
-        << _brand
-        << " > "
-        << _season
-        << " > "
-        << _category
-        << " > Models:\n\n";
+        cout << "\nSki > "
+             << _brand
+             << " > "
+             << _season
+             << " > "
+             << _category
+             << " > Models:\n\n";
         
         int iter = 0;
         list<string>::const_iterator i;
@@ -343,16 +362,15 @@ void Skis::printModels() {
 
 void Skis::printParameters() {
     
-    cout
-    << "\nSki > "
-    << _brand
-    << " > "
-    << _season
-    << " > "
-    << _category
-    << " > "
-    << _modelName
-    << " > Parameters:\n\n";
+    cout << "\nSki > "
+         << _brand
+         << " > "
+         << _season
+         << " > "
+         << _category
+         << " > "
+         << _modelName
+         << " > Parameters:\n\n";
     
     list<int>::const_iterator i;
     list<double>::const_iterator id;
